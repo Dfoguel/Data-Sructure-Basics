@@ -31,10 +31,23 @@ def reverse_string(s):
 
 def is_balanced(s):
     stk = stack()
+    pairs = {')':'(', '}':'{', ']':'['}
+
     for char in s:
-        stk.push(char)
-    
-    
+        if char in '({[':
+            stk.push(char)
+        elif char in ')}]':
+            if stk.is_empty() or stk.pop() != pairs[char]:
+                print('False')
+                return False
+            
+    result = stk.is_empty()
+    print(result)
+    return result
+
+
 if __name__ == '__main__':
     reverse_string("We will conquere COVI-19")
     reverse_string("I am the king")
+    is_balanced(")HELLO( ]HELLO[") # --> False
+    is_balanced("(HELLO) [HELLO]") # --> True
